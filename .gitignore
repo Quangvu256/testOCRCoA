@@ -1,0 +1,48 @@
+# ── Python ────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Virtual Environment ──────────────────────────────────
+venv/
+.venv/
+env/
+
+# ── Environment / Secrets ────────────────────────────────
+.env
+*.json
+!data/*.json
+
+# ── IDE ──────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Output files ─────────────────────────────────────────
+outputs/
+uploads/
+
+# ── OS ───────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Docker volumes ───────────────────────────────────────
+pgdata/
+
+# ── PyInstaller ──────────────────────────────────────────
+*.spec
+dist/
+build/
+
+# ── Data (user-specific, keep sample only) ───────────────
+data/*.csv
+data/*.xlsx
+!data/sample_materials.csv
