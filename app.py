@@ -322,6 +322,7 @@ if process_btn and both_uploaded:
                 "ti_trong": coa.ti_trong or (best_delivery.ti_trong if best_delivery else None),
                 "ti_le": coa.ti_le or (best_delivery.ti_le if best_delivery else None),
                 "trong_luong_rieng": coa.trong_luong_rieng or (best_delivery.trong_luong_rieng if best_delivery else None),
+                "hinh_dang": coa.hinh_dang or (best_delivery.hinh_dang if best_delivery else None),
                 "ma_hc": match.ma_hc if match else "",
                 "ten_ke_toan": match.ten_ke_toan if match else "",
                 "match_confidence": match.confidence if match else "none",
@@ -426,6 +427,7 @@ if st.session_state.all_records:
             "Titrong": m.get("ti_trong") or "",
             "Tile": m.get("ti_le") or "",
             "Trongluongrieng": m.get("trong_luong_rieng") or "",
+            "HinhDang": m.get("hinh_dang") or "",
             "HSD còn lại": f"{hsd_remaining} ngày" if hsd_remaining is not None else "",
             "Match": conf_display,
             "Score": f"{m['match_score']:.0%}" if m["match_score"] else "",
@@ -534,6 +536,7 @@ if st.session_state.all_records:
                 ti_trong=m.get("ti_trong"),
                 ti_le=m.get("ti_le"),
                 trong_luong_rieng=m.get("trong_luong_rieng"),
+                hinh_dang=m.get("hinh_dang"),
             )
             output_records.append(record)
 

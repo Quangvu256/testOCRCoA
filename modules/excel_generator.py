@@ -46,6 +46,7 @@ COLUMNS = [
     ("Titrong", 16),
     ("Tile", 16),
     ("Trongluongrieng", 20),
+    ("HinhDang", 24),
     ("HSDConLaiNgay", 18),
 ]
 
@@ -101,6 +102,7 @@ def generate_xlsx(records: list[OutputRecord], output_dir: str = "outputs") -> s
             record.ti_trong or "",
             record.ti_le or "",
             record.trong_luong_rieng or "",
+            record.hinh_dang or "",
             record.thoi_gian_hsd_con_lai,
         ]
 
@@ -108,7 +110,7 @@ def generate_xlsx(records: list[OutputRecord], output_dir: str = "outputs") -> s
             cell = ws.cell(row=row_idx, column=col_idx, value=value)
             cell.font = BODY_FONT
             cell.border = THIN_BORDER
-            cell.alignment = CENTER_ALIGN if col_idx in (1, 2, 3, 6, 7, 8, 9, 10, 12, 13, 14, 15) else LEFT_ALIGN
+            cell.alignment = CENTER_ALIGN if col_idx in (1, 2, 3, 6, 7, 8, 9, 10, 12, 13, 14, 16) else LEFT_ALIGN
 
         # ── Conditional formatting: HSD < 90 ngày → đỏ ──
         if record.thoi_gian_hsd_con_lai is not None and record.thoi_gian_hsd_con_lai < EXPIRY_WARNING_DAYS:
@@ -117,8 +119,8 @@ def generate_xlsx(records: list[OutputRecord], output_dir: str = "outputs") -> s
             hsd_cell.fill = RED_FILL
             hsd_cell.font = WHITE_FONT
 
-            # Cột HSD còn lại (index 15)
-            remaining_cell = ws.cell(row=row_idx, column=15)
+            # Cột HSD còn lại (index 16)
+            remaining_cell = ws.cell(row=row_idx, column=16)
             remaining_cell.fill = RED_FILL
             remaining_cell.font = WHITE_FONT
 

@@ -35,7 +35,8 @@ Return a JSON array. Each element = 1 raw material found in the document.
     "ten_cong_ty": "Company/manufacturer/supplier name or null",
     "ti_trong": "Specific gravity / ty trong value with unit/range or null",
     "ti_le": "Ratio / percentage / assay/concentration value with unit/range or null",
-    "trong_luong_rieng": "Density / trong luong rieng value with unit/range or null"
+    "trong_luong_rieng": "Density / trong luong rieng value with unit/range or null",
+    "hinh_dang": "Appearance / physical form / state, e.g. liquid, powder, granule, solid, color, or null"
   }
 ]
 ```
@@ -47,6 +48,7 @@ Rules:
 - If a date is missing, use null
 - If company/measurement fields are missing, use null
 - Keep ti_trong, ti_le, trong_luong_rieng as raw text including units, %, range, or comparator signs
+- Keep hinh_dang as raw text from Appearance/Form/Physical state/Description; include color if written
 - ten_cong_ty may be supplier, manufacturer, seller, or company name printed on the CoA
 - If multiple products on different pages, return array with multiple objects
 - Return ONLY the JSON array, no extra text
@@ -64,7 +66,8 @@ Return a JSON array. Each element = 1 material in the delivery:
     "ten_cong_ty": "Company/supplier/seller name or null",
     "ti_trong": "Specific gravity / ty trong value with unit/range or null",
     "ti_le": "Ratio / percentage / concentration value with unit/range or null",
-    "trong_luong_rieng": "Density / trong luong rieng value with unit/range or null"
+    "trong_luong_rieng": "Density / trong luong rieng value with unit/range or null",
+    "hinh_dang": "Appearance / physical form / state, e.g. liquid, powder, granule, solid, color, or null"
   }
 ]
 ```
@@ -74,6 +77,7 @@ Rules:
 - so_pack = number of packages/drums/bags (number or null)
 - If company/measurement fields are missing, use null
 - Keep ti_trong, ti_le, trong_luong_rieng as raw text including units, %, range, or comparator signs
+- Keep hinh_dang as raw text from Appearance/Form/Physical state/Description; include color if written
 - Return ONLY the JSON array, no extra text"""
 
 
@@ -315,6 +319,7 @@ def extract_coa(pdf_bytes: bytes) -> list[CoARecord]:
             ti_trong=_clean_optional_text(item.get("ti_trong")),
             ti_le=_clean_optional_text(item.get("ti_le")),
             trong_luong_rieng=_clean_optional_text(item.get("trong_luong_rieng")),
+            hinh_dang=_clean_optional_text(item.get("hinh_dang")),
         ))
 
     return records
@@ -373,6 +378,7 @@ def extract_delivery(pdf_bytes: bytes) -> list[DeliveryRecord]:
             ti_trong=_clean_optional_text(item.get("ti_trong")),
             ti_le=_clean_optional_text(item.get("ti_le")),
             trong_luong_rieng=_clean_optional_text(item.get("trong_luong_rieng")),
+            hinh_dang=_clean_optional_text(item.get("hinh_dang")),
         ))
 
     return records

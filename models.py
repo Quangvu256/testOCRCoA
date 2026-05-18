@@ -18,6 +18,7 @@ class CoARecord:
     ti_trong: Optional[str] = None
     ti_le: Optional[str] = None
     trong_luong_rieng: Optional[str] = None
+    hinh_dang: Optional[str] = None
 
 
 @dataclass
@@ -30,6 +31,7 @@ class DeliveryRecord:
     ti_trong: Optional[str] = None
     ti_le: Optional[str] = None
     trong_luong_rieng: Optional[str] = None
+    hinh_dang: Optional[str] = None
 
 
 @dataclass
@@ -59,6 +61,7 @@ class OutputRecord:
     ti_trong: Optional[str] = None
     ti_le: Optional[str] = None
     trong_luong_rieng: Optional[str] = None
+    hinh_dang: Optional[str] = None
     thoi_gian_hsd_con_lai: Optional[int] = None  # số ngày còn lại
 
     def calculate_remaining_days(self):
