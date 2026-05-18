@@ -33,16 +33,20 @@ LEFT_ALIGN = Alignment(horizontal="left", vertical="center", wrap_text=True)
 # ── Cấu trúc cột ─────────────────────────────────────────
 COLUMNS = [
     ("STT", 6),
-    ("Ngày nhập", 14),
-    ("Mã HC", 10),
-    ("Tên NL", 35),
-    ("Tên NL (kế toán)", 30),
-    ("Số lô", 18),
-    ("Số lượng (kg)", 14),
-    ("Số pack về", 12),
-    ("Ngày SX", 14),
+    ("NgayNhap", 14),
+    ("MaHC", 10),
+    ("TenHC", 35),
+    ("TenHC(Ke Toan)", 30),
+    ("SoLo", 18),
+    ("SoLuong", 14),
+    ("SoPack", 12),
+    ("NgaySX", 14),
     ("HSD", 14),
-    ("HSD còn lại (ngày)", 18),
+    ("TenCongTy", 28),
+    ("Titrong", 16),
+    ("Tile", 16),
+    ("Trongluongrieng", 20),
+    ("HSDConLaiNgay", 18),
 ]
 
 
@@ -93,6 +97,10 @@ def generate_xlsx(records: list[OutputRecord], output_dir: str = "outputs") -> s
             record.so_pack,
             record.ngay_sx.strftime("%d/%m/%Y") if record.ngay_sx else "",
             record.hsd.strftime("%d/%m/%Y") if record.hsd else "",
+            record.ten_cong_ty or "",
+            record.ti_trong or "",
+            record.ti_le or "",
+            record.trong_luong_rieng or "",
             record.thoi_gian_hsd_con_lai,
         ]
 
@@ -100,7 +108,7 @@ def generate_xlsx(records: list[OutputRecord], output_dir: str = "outputs") -> s
             cell = ws.cell(row=row_idx, column=col_idx, value=value)
             cell.font = BODY_FONT
             cell.border = THIN_BORDER
-            cell.alignment = CENTER_ALIGN if col_idx in (1, 2, 3, 6, 7, 8, 9, 10, 11) else LEFT_ALIGN
+            cell.alignment = CENTER_ALIGN if col_idx in (1, 2, 3, 6, 7, 8, 9, 10, 12, 13, 14, 15) else LEFT_ALIGN
 
         # ── Conditional formatting: HSD < 90 ngày → đỏ ──
         if record.thoi_gian_hsd_con_lai is not None and record.thoi_gian_hsd_con_lai < EXPIRY_WARNING_DAYS:
@@ -109,8 +117,8 @@ def generate_xlsx(records: list[OutputRecord], output_dir: str = "outputs") -> s
             hsd_cell.fill = RED_FILL
             hsd_cell.font = WHITE_FONT
 
-            # Cột HSD còn lại (index 11)
-            remaining_cell = ws.cell(row=row_idx, column=11)
+            # Cột HSD còn lại (index 15)
+            remaining_cell = ws.cell(row=row_idx, column=15)
             remaining_cell.fill = RED_FILL
             remaining_cell.font = WHITE_FONT
 

@@ -318,6 +318,10 @@ if process_btn and both_uploaded:
                 "hsd": coa.han_su_dung,
                 "so_luong_kg": best_delivery.so_luong_kg if best_delivery else None,
                 "so_pack": best_delivery.so_pack if best_delivery else None,
+                "ten_cong_ty": coa.ten_cong_ty or (best_delivery.ten_cong_ty if best_delivery else None),
+                "ti_trong": coa.ti_trong or (best_delivery.ti_trong if best_delivery else None),
+                "ti_le": coa.ti_le or (best_delivery.ti_le if best_delivery else None),
+                "trong_luong_rieng": coa.trong_luong_rieng or (best_delivery.trong_luong_rieng if best_delivery else None),
                 "ma_hc": match.ma_hc if match else "",
                 "ten_ke_toan": match.ten_ke_toan if match else "",
                 "match_confidence": match.confidence if match else "none",
@@ -418,6 +422,10 @@ if st.session_state.all_records:
             "Số pack": m["so_pack"],
             "Ngày SX": m["ngay_sx"].strftime("%d/%m/%Y") if m["ngay_sx"] else "",
             "HSD": m["hsd"].strftime("%d/%m/%Y") if m["hsd"] else "",
+            "TenCongTy": m.get("ten_cong_ty") or "",
+            "Titrong": m.get("ti_trong") or "",
+            "Tile": m.get("ti_le") or "",
+            "Trongluongrieng": m.get("trong_luong_rieng") or "",
             "HSD còn lại": f"{hsd_remaining} ngày" if hsd_remaining is not None else "",
             "Match": conf_display,
             "Score": f"{m['match_score']:.0%}" if m["match_score"] else "",
@@ -522,6 +530,10 @@ if st.session_state.all_records:
                 so_pack=m["so_pack"],
                 ngay_sx=m["ngay_sx"],
                 hsd=m["hsd"],
+                ten_cong_ty=m.get("ten_cong_ty"),
+                ti_trong=m.get("ti_trong"),
+                ti_le=m.get("ti_le"),
+                trong_luong_rieng=m.get("trong_luong_rieng"),
             )
             output_records.append(record)
 
